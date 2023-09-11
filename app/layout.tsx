@@ -6,8 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "FAANGresume.ai",
-  description: "
-  ",
+  description: "Use AI to dramatically improve your resume",
 };
 
 export default function RootLayout({
