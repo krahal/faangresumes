@@ -1,6 +1,6 @@
 "use client";
 
-import { useChat, useCompletion } from "ai/react";
+import { useChat } from "ai/react";
 import Header from "./header";
 import Footer from "./footer";
 import toast, { Toaster } from "react-hot-toast";
