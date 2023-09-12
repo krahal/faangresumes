@@ -4,14 +4,33 @@ import { useChat } from "ai/react";
 import Header from "./header";
 import Footer from "./footer";
 import toast, { Toaster } from "react-hot-toast";
+import { useEffect, useRef } from "react";
 
 export default function Home() {
+  const bulletsRef = useRef<null | HTMLDivElement>(null);
+
+  const scrollToBullets = () => {
+    if (bulletsRef.current !== null) {
+      bulletsRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
-    useChat({});
+    useChat({
+      onResponse() {
+        scrollToBullets();
+      },
+    });
 
   const lastMessage = messages[messages.length - 1];
   const generatedBullets =
     lastMessage?.role === "assistant" ? lastMessage.content : null;
+
+  useEffect(() => {
+    if (generatedBullets) {
+      scrollToBullets();
+    }
+  }, [generatedBullets]);
 
   return (
     <div className="flex max-w-5xl mx-auto flex-col items-center justify-center py-2 min-h-screen">
@@ -66,7 +85,7 @@ export default function Home() {
               <div>
                 <h2
                   className="sm:text-4xl text-3xl font-bold text-slate-900 mx-auto"
-                  // ref={captionRef}
+                  ref={bulletsRef}
                 >
                   Your improved work experience
                 </h2>
